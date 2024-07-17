@@ -1,12 +1,11 @@
 import spacy
 import pytextrank
 import streamlit as st
-import subprocess
-import sys
+from spacy.cli import download
 
 # Function to download the spaCy model
 def download_spacy_model(model_name):
-    subprocess.run([sys.executable, "-m", "spacy", "download", model_name])
+    download(model_name)
 
 # Download the spaCy model if not present
 model_name = "en_core_web_sm"
