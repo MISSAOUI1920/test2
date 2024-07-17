@@ -1,9 +1,20 @@
 import spacy
 import pytextrank
 import streamlit as st
+import subprocess
+import sys
 
-# Load a spaCy model
-nlp = spacy.load("en_core_web_sm")
+# Function to download the spaCy model
+def download_spacy_model(model_name):
+    subprocess.run([sys.executable, "-m", "spacy", "download", model_name])
+
+# Download the spaCy model if not present
+model_name = "en_core_web_sm"
+try:
+    nlp = spacy.load(model_name)
+except OSError:
+    download_spacy_model(model_name)
+    nlp = spacy.load(model_name)
 
 # Add PyTextRank to the spaCy pipeline
 nlp.add_pipe("textrank", last=True)
